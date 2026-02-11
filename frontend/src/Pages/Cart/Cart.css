@@ -1,0 +1,207 @@
+/* Cart.css - screenshot match */
+
+/* Page container */
+.cart {
+  margin: 80px auto;
+  max-width: 1100px;
+  padding: 0 28px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #222;
+}
+
+/* ---------- Items area (full width on top) ---------- */
+.cart-items {
+  width: 100%;
+  margin-bottom: 36px;
+  min-width: 0;
+}
+
+/* header row / columns */
+.cart-items-title {
+  display: grid;
+  grid-template-columns: 64px 1fr 90px 90px 110px 48px;
+  gap: 12px;
+  align-items: center;
+  color: #8b8b8b;
+  font-size: 13px;
+  padding: 6px 0;
+}
+
+/* item rows */
+.cart-items-item {
+  display: grid;
+  grid-template-columns: 64px 1fr 90px 90px 110px 48px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  color: #222;
+}
+
+/* small image */
+.cart-items-item img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+/* thin divider line under header and between items */
+.cart hr {
+  height: 1px;
+  background-color: #eee;
+  border: none;
+  margin: 6px 0 0;
+}
+
+/* remove (x) */
+.cross {
+  cursor: pointer;
+  color: #999;
+  font-weight: 600;
+}
+.cross:hover { color: #e44; }
+
+/* ---------- Bottom row: left totals, right promo ---------- */
+.cart-bottom {
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* LEFT: totals card */
+.cart-total {
+  flex: 1 1 540px;
+  max-width: 560px; /* left column width */
+  background: transparent;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 0;
+}
+
+/* Cart Totals title */
+.cart-total h2 {
+  margin: 8px 0 0;
+  font-size: 20px;
+  color: #111;
+}
+
+/* totals rows (two-column placement) */
+.cart-total-details-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 8px;
+  color: #555;
+  font-size: 15px;
+}
+
+/* subtle divider bar (thin line) */
+.cart-total .divider {
+  height: 1px;
+  background: #eee;
+  margin: 0;
+  width: 100%;
+}
+
+/* stronger total style */
+.cart-total-details-row.total-strong .label,
+.cart-total-details-row.total-strong .value {
+  color: #111;
+  font-weight: 600;
+}
+
+/* checkout area visually separated */
+.checkout-wrap {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px dashed #e8e8e8;
+  width: 320px; /* button container width */
+}
+
+/* orange button left-aligned like screenshot */
+.proceed-btn {
+  display: inline-block;
+  width: 240px;
+  background: #ef5a36; /* tomato-like orange */
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.6px;
+}
+.proceed-btn:hover { opacity: 0.95; }
+
+/* ---------- RIGHT: promo card ---------- */
+.cart-promo {
+  flex: 0 0 360px;
+  max-width: 360px;
+}
+
+.cart-promocode {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(2,6,23,0.04);
+  color: #6b6b6b;
+  font-size: 14px;
+}
+
+.cart-promocode p {
+  margin: 0 0 10px 0;
+  color: #6b6b6b;
+}
+
+/* promo input + submit (matches screenshot: light input + dark submit) */
+.cart-promocode-input {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.cart-promocode-input input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.cart-promocode-input button {
+  background: #111;   /* dark submit button like screenshot */
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* ---------- Small-screen responsiveness ---------- */
+@media (max-width: 900px) {
+  .cart {
+    padding: 0 18px;
+  }
+  .cart-bottom {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .checkout-wrap { width: 100%; }
+  .proceed-btn { width: 100%; max-width: 360px; }
+  .cart-promo { width: 100%; max-width: none; }
+}
+
+@media (max-width: 640px) {
+  .cart-items-title,
+  .cart-items-item {
+    grid-template-columns: 56px 1fr; /* stack on mobile */
+  }
+  .cart-items-title p:nth-child(n+3) { display: none; }
+  .cart-items-item { padding: 10px 0; }
+}
