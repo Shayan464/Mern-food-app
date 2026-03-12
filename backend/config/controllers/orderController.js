@@ -1,66 +1,81 @@
-import orderModel from "../models/orderModel.js";
-import userModel from "../models/userModel.js";
-import paypal from "@paypal/checkout-server-sdk";
-
-
-const environment = new paypal.core.SandboxEnvironment(
-  process.env.PAYPAL_CLIENT_ID,
-  process.env.PAYPAL_SECRET
-);
-const client = new paypal.core.PayPalHttpClient(environment);
-
+import orderModel from '../models/orderModel.js';
+import userModel from '../models/userModel.js';
 
 const placeOrder = async (req, res) => {
-  const userId = req.userId; 
+  const userId = req.userId;
   const { items, amount, address } = req.body;
 
+  const frontend_url = 'http://localhost:5173';
+
   try {
-   
     const newOrder = new orderModel({
       userId,
       items,
       amount,
       address,
-      status: "Pending",
+      status: 'Order Placed',
+      paymentId: 'COD', // optional placeholder
     });
+
     await newOrder.save();
 
-    
+    // clear cart
     await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
-  
-    const request = new paypal.orders.OrdersCreateRequest();
-    request.prefer("return=representation");
-    request.requestBody({
-      intent: "CAPTURE",
-      purchase_units: [
-        {
-          amount: {
-            currency_code: "USD",
-            value: amount.toString(),
-          },
-        },
-      ],
-    });
-
-    
-    const order = await client.execute(request);
-
-   
-    newOrder.paymentId = order.result.id;
-    await newOrder.save();
-
-   
-    const approveUrl = order.result.links.find(link => link.rel === "approve").href;
-
     res.status(201).json({
-      orderID: order.result.id,
-      approveUrl,
+      success: true,
+      message: 'Order placed successfully',
+      order: newOrder,
     });
   } catch (error) {
-    console.error("Error placing order:", error);
-    res.status(500).json({ message: "Error placing order" });
+    console.error('Error placing order:', error);
+    res.status(500).json({ message: 'Error placing order' });
   }
 };
 
-export { placeOrder };
+//user orders for frontend
+
+const userorders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({ userId: req.userId });
+
+    res.json({
+      success: true,
+      data: orders,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      message: 'Error in userOrders',
+    });
+  }
+};
+
+// list all orders for admin panel
+
+const listOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, data: orders });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: 'Error in list orders' });
+  }
+};
+
+// api for updating order status
+
+const updateStatus = async (req, res) => {
+  try {
+    await orderModel.findByIdAndUpdate(req.body.orderId, {
+      status: req.body.status,
+    });
+    res.json({ success: true, message: 'Status updated' });
+  } catch (error) {
+    console.log(error, 'Error in updating status');
+    res.json({ success: false, message: 'Error' });
+  }
+};
+
+export { placeOrder, userorders, listOrders, updateStatus };

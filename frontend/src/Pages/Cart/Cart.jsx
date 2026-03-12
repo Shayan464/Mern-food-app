@@ -1,21 +1,21 @@
-import React, { useContext, useState, useEffect } from "react";
-import "./Cart.css";
-import { StoreContext } from "../../Context/StoreContext";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect } from 'react';
+import './Cart.css';
+import { StoreContext } from '../../Context/StoreContext';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount, url, token } = useContext(StoreContext);
-  const [loading, setLoading] = useState(true);
+  const {
+    cartItems,
+    food_list,
+    removeFromCart,
+    getTotalCartAmount,
+    url,
+    token,
+  } = useContext(StoreContext);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Wait for cartItems to load after login
-    if (token) {
-      setLoading(false);
-    }
-  }, [cartItems, token]);
-
-  if (loading) {
+  if (food_list.length === 0) {
     return <div className="cart-loading">Loading cart...</div>;
   }
 
@@ -32,12 +32,12 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {food_list.map((item, index) => {
+        {food_list.map((item) => {
           if (cartItems[item._id] > 0) {
             return (
-              <div key={index}>
+              <div key={item._id}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={url+"/images/"+item.image} alt="" />
+                  <img src={url + '/images/' + item.image} alt="" />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>
@@ -66,9 +66,9 @@ const Cart = () => {
 
           <div className="cart-total-details-row">
             <div className="label">Delivery Fee</div>
-            <div className="value">${getTotalCartAmount() === 0 ? 0 :2}</div>
+            <div className="value">${getTotalCartAmount() === 0 ? 0 : 2}</div>
           </div>
-       
+
           <div className="divider" />
 
           <div className="cart-total-details-row total-strong">
@@ -76,14 +76,16 @@ const Cart = () => {
               <b>Total</b>
             </div>
             <div className="value">
-              <b>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() +2}</b>
+              <b>
+                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
+              </b>
             </div>
-
           </div>
-            <button className="proceed-btn" onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>
+          <button className="proceed-btn" onClick={() => navigate('/order')}>
+            PROCEED TO CHECKOUT
+          </button>
 
-          <div className="checkout-wrap">
-          </div>
+          <div className="checkout-wrap"></div>
         </div>
 
         {/* RIGHT: promo box (separate) */}

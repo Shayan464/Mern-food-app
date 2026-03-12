@@ -1,22 +1,26 @@
-import React, { useContext, useState } from "react";
-import "./PlaceOrder.css";
-import { StoreContext } from "../../Context/StoreContext";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from 'react';
+import './PlaceOrder.css';
+import { StoreContext } from '../../Context/StoreContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, food_list, cartItems, url, userId } =
     useContext(StoreContext);
 
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    street: "",
-    city: "",
-    state: "",
-    zipcode: "",
-    country: "",
-    phone: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+    country: '',
+    phone: '',
   });
 
   const OnchangeHandler = (e) => {
@@ -38,7 +42,6 @@ const PlaceOrder = () => {
       }
     });
 
-    
     const totalAmount =
       getTotalCartAmount() + (getTotalCartAmount() === 0 ? 0 : 2);
 
@@ -46,7 +49,7 @@ const PlaceOrder = () => {
       const response = await axios.post(
         `${url}/api/orders/place`,
         {
-          userId, 
+          userId,
           items: orderItems,
           amount: totalAmount,
           address: data,
@@ -56,15 +59,29 @@ const PlaceOrder = () => {
         }
       );
 
-      console.log("Backend response:", response.data);
+      console.log('Backend response:', response.data);
+      if (response.data.success) {
+        toast.success('Order placed successfully!');
+        navigate('/');
+      } else {
+        toast.error('Something went wrong');
+      }
 
       if (response.data.orderID) {
         window.location.href = `/order/${response.data.orderID}`;
       }
     } catch (err) {
-      console.error("Error placing order:", err);
+      console.error('Error placing order:', err);
     }
   };
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/cart');
+    } else if (getTotalCartAmount() === 0) {
+      navigate('/cart');
+    }
+  }, [token]);
 
   return (
     <form className="palce-order" onSubmit={placeOrder}>
