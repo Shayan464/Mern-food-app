@@ -8,10 +8,10 @@ An **admin panel** is also included where administrators can manage food items a
 ## 🌐 Live Links
 
 🔗 **Customer Website**
-https://mern-food-app-o9z0.onrender.com
+https://mern-food-app-5pid.vercel.app
 
 🛠 **Admin Dashboard**
-https://mern-food-app-admin-wuu3.onrender.com
+https://mern-food-app-k7nq.vercel.app
 
 ⚙ **Backend API**
 https://mern-food-app-backend-3ops.onrender.com
