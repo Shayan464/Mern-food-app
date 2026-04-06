@@ -5,6 +5,18 @@ This platform allows customers to browse food items, add them to the cart, place
 
 An **admin panel** is also included where administrators can manage food items and update order statuses.
 
+## 🌐 Live Links
+
+🔗 **Customer Website**
+https://mern-food-app-o9z0.onrender.com
+
+🛠 **Admin Dashboard**
+https://mern-food-app-admin-wuu3.onrender.com
+
+⚙ **Backend API**
+https://mern-food-app-backend-3ops.onrender.com
+
+
 ---
 
 # 🚀 Features
