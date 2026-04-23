@@ -9,7 +9,7 @@ import Orders from './Pages/Orders/Orders';
 import { ToastContainer } from 'react-toastify';
 
 const App = () => {
-  const url = 'https://mern-food-app-backend-3ops.onrender.com';
+  const url = 'https://mern-food-app-94ys.onrender.com';
 
   return (
     <>
