@@ -11,7 +11,7 @@ An **admin panel** is also included where administrators can manage food items a
 https://mern-food-app-5pid.vercel.app
 
 🛠 **Admin Dashboard**
-https://mern-food-app-k7nq.vercel.app
+https://mern-food-app-shayan464s-projects.vercel.app/
 
 ⚙ **Backend API**
 https://mern-food-app-backend-3ops.onrender.com
