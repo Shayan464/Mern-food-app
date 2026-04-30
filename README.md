@@ -14,7 +14,7 @@ https://mern-food-app-5pid.vercel.app
 https://mern-food-app-shayan464s-projects.vercel.app/
 
 ⚙ **Backend API**
-https://mern-food-app-backend-3ops.onrender.com
+https://mern-food-app-r1zj.onrender.com
 
 
 ---
